@@ -1,9 +1,9 @@
 CFLAGS+=-I/usr/include/python2.7 -g -O0 -Wall
 LDLIBS+=-lpython2.7
 
-GENERATED=str *.so woex woexp.c
+GENERATED=str list *.so woex woexp.c
 
-all:	str repeat.so woex woexp.so
+all:	str list repeat.so woex woexp.so
 
 %.c:	%.pyx
 	cython $< -o $@
@@ -26,3 +26,5 @@ test:	all
 	python -c 'import repeat; print dir(repeat); help(repeat)' | cat
 	valgrind python testwoexp.py
 	python -c 'import woexp; print dir(woexp); help(woexp)' | cat
+test_list:   all
+	valgrind ./list qwe wer ert 0 2 2
